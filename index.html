@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全国鉄道案内</title>
+<style>
+body{font-family:sans-serif;margin:0;background:#eef4fa;color:#18324d}
+header{background:#123b67;color:white;padding:22px 16px}
+main{padding:16px}
+.card{background:white;border-radius:14px;padding:16px;margin:12px 0}
+input,button{box-sizing:border-box;width:100%;padding:12px;margin:6px 0;font-size:16px;border-radius:8px}
+input{border:1px solid #aaa}
+button{background:#1768ac;color:white;border:0}
+</style>
+</head>
+<body>
+<header>
+<h1>🚆 全国鉄道案内</h1>
+全国の駅・路線・運行情報
+</header>
+<main>
+<div class="card">
+<h2>🔎 駅を検索</h2>
+<input id="station" placeholder="駅名（例：東京）">
+<button onclick="searchStation()">駅を検索</button>
+<p id="result">駅名を入力して検索してください。</p>
+</div>
+<div class="card">
+<h2>🚦 運行情報</h2>
+<p>リアルタイムデータ未接続</p>
+</div>
+<div class="card">
+<h2>🚄 列車の走行位置</h2>
+<p>列車位置データ未接続</p>
+</div>
+<div class="card">
+<h2>🕒 駅の時刻表</h2>
+<p>時刻表データ未接続</p>
+</div>
+</main>
+<script>
+async function searchStation(){
+const name=document.getElementById("station").value.trim();
+const result=document.getElementById("result");
+if(!name){result.textContent="駅名を入力してください。";return;}
+result.textContent="検索中…";
+try{
+const url="https://train.teraren.com/stations.json?name="+encodeURIComponent(name);
+const response=await fetch(url);
+if(!response.ok)throw new Error();
+const data=await response.json();
+if(!Array.isArray(data)||data.length===0){
+result.textContent="駅が見つからないか、データがありません。";
+return;
+}
+result.textContent=data.slice(0,10).map(s=>s.name).join(" / ");
+}catch(e){
+result.textContent="取得できませんでした。通信やAPIの状態を確認してください。";
+}
+}
+</script>
+</body>
+</html>
