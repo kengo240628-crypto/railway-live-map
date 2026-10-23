@@ -62,7 +62,65 @@ data.slice(0,10).forEach(s => {
   button.style.margin = "4px";
   button.onclick = () => {
     document.getElementById("station").value = s.station_name;
-    result.textContent = "選択した駅：" + s.station_name;
+    const stationName = s.station_name;
+
+document.getElementById("station").value = stationName;
+
+const routes = {
+  "東京": [
+    "東海道新幹線",
+    "東北・北海道新幹線",
+    "山手線",
+    "中央線",
+    "東海道線",
+    "京浜東北線",
+    "横須賀線",
+    "京葉線",
+    "丸ノ内線"
+  ],
+  "品川": [
+    "東海道新幹線",
+    "山手線",
+    "京浜東北線",
+    "東海道線",
+    "横須賀線"
+  ],
+  "新横浜": [
+    "東海道新幹線",
+    "横浜線",
+    "横浜市営地下鉄ブルーライン",
+    "相鉄・東急新横浜線"
+  ],
+  "小田原": [
+    "東海道新幹線",
+    "東海道線",
+    "小田急線",
+    "箱根登山線"
+  ],
+  "熱海": [
+    "東海道新幹線",
+    "東海道線",
+    "伊東線"
+  ],
+  "静岡": [
+    "東海道新幹線",
+    "東海道線"
+  ],
+  "浜松": [
+    "東海道新幹線",
+    "東海道線"
+  ]
+};
+
+const stationRoutes = routes[stationName];
+
+result.style.whiteSpace = "pre-line";
+result.textContent =
+  "選択した駅：" + stationName +
+  "\n乗り入れ路線：" +
+  (stationRoutes
+    ? stationRoutes.join("、")
+    : "この駅の路線データはまだありません。");
   };
   result.appendChild(button);
 });
