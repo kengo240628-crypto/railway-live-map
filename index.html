@@ -164,6 +164,21 @@ result.textContent =
     ? stationRoutes.join("、")
     : "この駅の路線データはまだありません。");
   };
+  const timetableButton = document.createElement("button");
+timetableButton.textContent = "🕒 この駅の時刻表をWeb検索";
+timetableButton.style.display = "block";
+timetableButton.style.margin = "10px 0";
+
+timetableButton.onclick = () => {
+  const query = stationName + " 駅 時刻表";
+  const searchUrl =
+    "https://www.google.com/search?" +
+    new URLSearchParams({ q: query }).toString();
+
+  window.open(searchUrl, "_blank", "noopener,noreferrer");
+};
+
+result.appendChild(timetableButton);
   result.appendChild(button);
 });
 }catch(e){
