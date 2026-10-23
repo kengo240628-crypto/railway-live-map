@@ -55,7 +55,7 @@ if(!Array.isArray(data)||data.length===0){
 result.textContent="駅が見つからないか、データがありません。";
 return;
 }
-result.textContent=data.slice(0,10).map(s=>s.name).join(" / ");
+result.textContent=data.slice(0,10).map(s=>s.station_name).join(" / ");
 }catch(e){
 result.textContent="取得できませんでした。通信やAPIの状態を確認してください。";
 }
