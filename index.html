@@ -169,14 +169,14 @@ timetableButton.textContent = "🕒 この駅の時刻表をWeb検索";
 timetableButton.style.display = "block";
 timetableButton.style.margin = "10px 0";
 
-timetableButton.onclick = () => {
+timetableButton.addEventListener("click", function () {
   const query = stationName + " 駅 時刻表";
   const searchUrl =
     "https://www.google.com/search?q=" +
     encodeURIComponent(query);
 
-  window.location.href = searchUrl;
-};
+  window.open(searchUrl, "_self");
+});
 result.appendChild(timetableButton);
   result.appendChild(button);
 });
